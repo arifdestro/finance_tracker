@@ -83,7 +83,7 @@ class BudgetManager extends Component
         $budget = Budget::where('user_id', Auth::id())->findOrFail($id);
         $this->budgetId = $budget->id;
         $this->category_id = $budget->category_id;
-        $this->amount = $budget->amount;
+        $this->amount = round($budget->amount);
         $this->openModal();
     }
 

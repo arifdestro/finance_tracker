@@ -147,22 +147,40 @@
             // Trend Chart
             const trendCtx = document.getElementById('trendChart');
             if(trendCtx) {
+                let chartStatus = Chart.getChart(trendCtx);
+                if (chartStatus) chartStatus.destroy();
+
                 new Chart(trendCtx, {
-                    type: 'bar',
+                    type: 'line',
                     data: {
                         labels: {!! json_encode($last7Days) !!},
                         datasets: [
                             {
                                 label: 'Pemasukan',
                                 data: {!! json_encode($incomeData) !!},
-                                backgroundColor: '#10b981',
-                                borderRadius: 4,
+                                borderColor: '#10b981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                borderWidth: 3,
+                                tension: 0.4,
+                                fill: true,
                             },
                             {
                                 label: 'Pengeluaran',
                                 data: {!! json_encode($expenseData) !!},
-                                backgroundColor: '#f43f5e',
-                                borderRadius: 4,
+                                borderColor: '#f43f5e',
+                                backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                                borderWidth: 3,
+                                tension: 0.4,
+                                fill: true,
+                            },
+                            {
+                                label: 'Transfer',
+                                data: {!! json_encode($transferData) !!},
+                                borderColor: '#6366f1',
+                                backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                                borderWidth: 3,
+                                tension: 0.4,
+                                fill: true,
                             }
                         ]
                     },
@@ -180,10 +198,13 @@
                 });
             }
 
-            // Category Chart
-            const catCtx = document.getElementById('categoryChart');
-            if(catCtx) {
-                new Chart(catCtx, {
+            // Distribution Chart
+            const distCtx = document.getElementById('categoryChart');
+            if(distCtx) {
+                let distStatus = Chart.getChart(distCtx);
+                if (distStatus) distStatus.destroy();
+
+                new Chart(distCtx, {
                     type: 'doughnut',
                     data: {
                         labels: {!! json_encode($categoryLabels) !!},

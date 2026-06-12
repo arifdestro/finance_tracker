@@ -28,11 +28,34 @@
             <!-- Amount -->
             <div>
                 <label class="block text-sm font-medium text-slate-300 mb-1">Jumlah</label>
-                <div class="relative">
+                <div class="relative" 
+                     x-data="{ 
+                         displayValue: $wire.entangle('amount').live,
+                         formatRupiah(value) {
+                             if (!value) return '';
+                             let number_string = value.toString().replace(/[^,\d]/g, '').toString();
+                             let split = number_string.split(',');
+                             let sisa = split[0].length % 3;
+                             let rupiah = split[0].substr(0, sisa);
+                             let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+                             if (ribuan) {
+                                 let separator = sisa ? '.' : '';
+                                 rupiah += separator + ribuan.join('.');
+                             }
+                             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                             return rupiah;
+                         },
+                         updateValue(event) {
+                             let raw = event.target.value.replace(/\./g, '');
+                             $wire.set('amount', raw);
+                             event.target.value = this.formatRupiah(raw);
+                         }
+                     }"
+                     x-init="$refs.input.value = formatRupiah(displayValue)">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <span class="text-slate-500 font-medium">Rp</span>
                     </div>
-                    <input type="number" wire:model="amount" class="w-full pl-12 py-3 text-lg font-semibold rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    <input type="text" x-ref="input" @input="updateValue" autocomplete="off" class="w-full pl-12 py-3 text-lg font-semibold rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
                 </div>
                 @error('amount') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
             </div>

@@ -63,6 +63,7 @@ class Overview extends Component
         $last7Days = collect();
         $incomeData = [];
         $expenseData = [];
+        $transferData = [];
 
         for ($i = 6; $i >= 0; $i--) {
             $date = Carbon::now()->subDays($i)->format('Y-m-d');
@@ -79,14 +80,20 @@ class Overview extends Component
                 ->whereDate('transaction_date', $date)
                 ->sum('amount');
 
+            $transfer = Transaction::where('user_id', $userId)
+                ->where('type', 'transfer')
+                ->whereDate('transaction_date', $date)
+                ->sum('amount');
+
             $incomeData[] = $income;
             $expenseData[] = $expense;
+            $transferData[] = $transfer;
         }
 
         return view('livewire.dashboard.overview', compact(
             'totalBalance', 'incomeThisMonth', 'expenseThisMonth', 'recentTransactions',
             'categoryLabels', 'categoryData', 'categoryColors',
-            'last7Days', 'incomeData', 'expenseData'
+            'last7Days', 'incomeData', 'expenseData', 'transferData'
         ))->layout('layouts.app');
     }
 }
