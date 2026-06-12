@@ -11,6 +11,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Categories
     Route::get('/categories', \App\Livewire\Categories\CategoryManager::class)->name('categories');
     
+    // Budgets
+    Route::get('/budgets', \App\Livewire\Budgets\BudgetManager::class)->name('budgets');
+    
     // Wallets
     Route::get('/wallets', \App\Livewire\Wallets\WalletManager::class)->name('wallets');
     
