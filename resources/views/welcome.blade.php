@@ -137,8 +137,11 @@
             </div>
         </main>
         
-        <footer class="relative z-10 glass-panel border-t border-white/5 py-8 mt-auto text-center">
-            <p class="text-slate-500 text-sm">&copy; {{ date('Y') }} Finance Tracker. Dibangun dengan Laravel 11 & Livewire 3.</p>
+        <footer class="relative z-10 glass-panel border-t border-white/5 py-8 mt-auto">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-slate-500 text-sm">&copy; {{ date('Y') }} Finance Tracker. Dibangun dengan Laravel 11 & Livewire 3.</p>
+                <a href="{{ route('privacy-policy') }}" class="text-sm text-slate-500 hover:text-indigo-400 transition-colors">Kebijakan Privasi</a>
+            </div>
         </footer>
     </body>
 </html>
