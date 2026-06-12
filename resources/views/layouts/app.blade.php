@@ -39,6 +39,20 @@
                     radial-gradient(at 100% 100%, rgba(236,72,153,0.04) 0px, transparent 50%);
             }
 
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
+            .animate-float { animation: float 6s ease-in-out infinite; }
+            .animate-float-delayed { animation: float 6s ease-in-out 3s infinite; }
+            
+            @keyframes fade-in-up {
+                0% { opacity: 0; transform: translateY(10px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fade-in-up { animation: fade-in-up 0.4s ease-out forwards; }
+
             /* Glass Card */
             .glass-card {
                 background: rgba(255,255,255,0.03);
@@ -63,10 +77,14 @@
         </style>
     </head>
     <body class="antialiased">
-        <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden bg-slate-950 bg-mesh">
+        <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden bg-slate-950 bg-mesh relative">
             
+            <!-- Global floating decorative elements -->
+            <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] animate-float pointer-events-none z-0"></div>
+            <div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[120px] animate-float-delayed pointer-events-none z-0"></div>
+
             <!-- ===== SIDEBAR (Desktop) ===== -->
-            <aside class="hidden lg:flex lg:flex-col w-[280px] bg-slate-900/80 backdrop-blur-xl border-r border-white/5 shrink-0">
+            <aside class="hidden lg:flex lg:flex-col w-[280px] bg-slate-900/80 backdrop-blur-xl border-r border-white/5 shrink-0 z-20">
                 <!-- Brand -->
                 <div class="flex items-center gap-3 px-6 h-[72px] border-b border-white/5">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/25">
@@ -172,7 +190,7 @@
                 </header>
 
                 <!-- Page Content -->
-                <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+                <main class="flex-1 overflow-y-auto p-6 lg:p-8 animate-fade-in-up z-10 relative">
                     {{ $slot }}
                 </main>
             </div>
