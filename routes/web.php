@@ -20,6 +20,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Recurring Transactions
     Route::get('/recurring', \App\Livewire\RecurringTransactions\RecurringManager::class)->name('recurring');
     
+    // Backup & Sync
+    Route::get('/sync', \App\Livewire\DataSync\SyncManager::class)->name('sync');
+    
     // Wallets
     Route::get('/wallets', \App\Livewire\Wallets\WalletManager::class)->name('wallets');
     
