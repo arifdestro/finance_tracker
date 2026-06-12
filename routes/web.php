@@ -17,6 +17,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Reports
     Route::get('/reports', \App\Livewire\Reports\ReportManager::class)->name('reports');
     
+    // Recurring Transactions
+    Route::get('/recurring', \App\Livewire\RecurringTransactions\RecurringManager::class)->name('recurring');
+    
     // Wallets
     Route::get('/wallets', \App\Livewire\Wallets\WalletManager::class)->name('wallets');
     
