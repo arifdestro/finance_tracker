@@ -23,6 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Backup & Sync
     Route::get('/sync', \App\Livewire\DataSync\SyncManager::class)->name('sync');
     
+    // Settings
+    Route::get('/settings', \App\Livewire\Settings\SettingsManager::class)->name('settings');
+    
     // Wallets
     Route::get('/wallets', \App\Livewire\Wallets\WalletManager::class)->name('wallets');
     
