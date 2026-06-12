@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+
+// Google OAuth Routes
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 
 Route::middleware('guest')->group(function () {
     Volt::route('register', 'pages.auth.register')

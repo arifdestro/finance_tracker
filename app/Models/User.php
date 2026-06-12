@@ -26,6 +26,7 @@ class User extends Authenticatable
         'currency',
         'locale',
         'theme',
+        'google_id',
     ];
 
     /**
