@@ -57,4 +57,5 @@ class User extends Authenticatable
     public function categories() { return $this->hasMany(Category::class); }
     public function budgets() { return $this->hasMany(Budget::class); }
     public function recurringTransactions() { return $this->hasMany(RecurringTransaction::class); }
+    public function debts() { return $this->hasMany(Debt::class); }
 }

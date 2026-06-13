@@ -3,6 +3,7 @@
 namespace App\Livewire\Reports;
 
 use App\Models\Transaction;
+use App\Models\Debt;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,11 @@ class ReportManager extends Component
             'totalIncome' => $totalIncome,
             'totalExpense' => $totalExpense,
             'expenseByCategory' => $expenseByCategory,
+            'totalDebtUnpaid' => Debt::where('user_id', $userId)->where('is_paid', false)->sum('amount'),
+            'totalDebtPaid' => Debt::where('user_id', $userId)->where('is_paid', true)->sum('amount'),
+            'debts' => Debt::with('wallet')->where('user_id', $userId)
+                ->whereBetween('debt_date', [$this->startDate, $this->endDate])
+                ->orderByDesc('debt_date')->get(),
         ];
     }
 

@@ -2,12 +2,12 @@
     {{-- Page Header --}}
     <div class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 class="text-2xl font-bold text-white tracking-tight">Kategori Transaksi</h1>
-            <p class="mt-1 text-sm text-slate-400">Kelola kategori untuk pemasukan dan pengeluaran Anda.</p>
+            <h1 class="text-2xl font-bold text-white tracking-tight">{{ __('Kategori Transaksi') }}</h1>
+            <p class="mt-1 text-sm text-slate-400">{{ __('Kelola kategori untuk pemasukan dan pengeluaran Anda.') }}</p>
         </div>
         <button wire:click="create()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl shadow-lg shadow-indigo-500/25 transition-all duration-200 font-medium text-sm flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            Tambah Kategori
+            {{ __('Tambah Kategori') }}
         </button>
     </div>
 
@@ -50,15 +50,15 @@
                     {{-- Actions --}}
                     @if(!$category->is_default)
                         <div class="opacity-0 group-hover:opacity-100 transition-all duration-200 flex flex-col gap-1.5">
-                            <button wire:click="edit({{ $category->id }})" class="p-1.5 rounded-lg text-slate-500 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors duration-150" title="Edit">
+                            <button wire:click="edit({{ $category->id }})" class="p-1.5 rounded-lg text-slate-500 hover:text-indigo-400 hover:bg-indigo-500/10 transition-colors duration-150" title="{{ __('Edit') }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                             </button>
-                            <button wire:click="delete({{ $category->id }})" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors duration-150" title="Hapus">
+                            <button wire:click="delete({{ $category->id }})" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors duration-150" title="{{ __('Hapus') }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
                         </div>
                     @else
-                        <div class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-slate-500 font-medium">Default</div>
+                        <div class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-slate-500 font-medium">{{ __('Default') }}</div>
                     @endif
                 </div>
             </div>
@@ -81,10 +81,10 @@
                         {{-- Modal Header --}}
                         <div class="mb-6">
                             <h3 class="text-lg leading-6 font-semibold text-white" id="modal-title">
-                                {{ $categoryId ? 'Edit Kategori' : 'Tambah Kategori' }}
+                                {{ $categoryId ? __('Edit Kategori') : __('Tambah Kategori') }}
                             </h3>
                             <p class="mt-1 text-sm text-slate-500">
-                                {{ $categoryId ? 'Perbarui informasi kategori Anda.' : 'Buat kategori baru untuk transaksi Anda.' }}
+                                {{ $categoryId ? __('Perbarui informasi kategori Anda.') : __('Buat kategori baru untuk transaksi Anda.') }}
                             </p>
                         </div>
 
@@ -92,17 +92,17 @@
                         <div class="space-y-5">
                             {{-- Nama Kategori --}}
                             <div>
-                                <label class="block text-sm font-medium text-slate-300 mb-1.5">Nama Kategori</label>
-                                <input type="text" wire:model="name" class="block w-full rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 shadow-sm focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 sm:text-sm px-4 py-2.5 transition-colors duration-150" placeholder="Masukkan nama kategori...">
+                                <label class="block text-sm font-medium text-slate-300 mb-1.5">{{ __('Nama Kategori') }}</label>
+                                <input type="text" wire:model="name" class="block w-full rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 shadow-sm focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 sm:text-sm px-4 py-2.5 transition-colors duration-150" placeholder="{{ __('Masukkan nama kategori...') }}">
                                 @error('name') <span class="text-rose-400 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
 
                             {{-- Tipe --}}
                             <div>
-                                <label class="block text-sm font-medium text-slate-300 mb-1.5">Tipe</label>
+                                <label class="block text-sm font-medium text-slate-300 mb-1.5">{{ __('Tipe') }}</label>
                                 <select wire:model="type" class="block w-full rounded-xl bg-slate-800/50 border border-white/10 text-white shadow-sm focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 sm:text-sm px-4 py-2.5 transition-colors duration-150">
-                                    <option value="expense">Pengeluaran (Expense)</option>
-                                    <option value="income">Pemasukan (Income)</option>
+                                    <option value="expense">{{ __('Pengeluaran (Expense)') }}</option>
+                                    <option value="income">{{ __('Pemasukan (Income)') }}</option>
                                 </select>
                                 @error('type') <span class="text-rose-400 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
@@ -110,14 +110,14 @@
                             {{-- Warna & Ikon --}}
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-300 mb-1.5">Warna</label>
+                                    <label class="block text-sm font-medium text-slate-300 mb-1.5">{{ __('Warna') }}</label>
                                     <input type="color" wire:model="color" class="block w-full h-11 rounded-xl bg-slate-800/50 border border-white/10 shadow-sm cursor-pointer transition-colors duration-150 p-1">
                                     @error('color') <span class="text-rose-400 text-xs mt-1 block">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-300 mb-1.5">Ikon</label>
+                                    <label class="block text-sm font-medium text-slate-300 mb-1.5">{{ __('Ikon') }}</label>
                                     <select wire:model="icon" class="block w-full rounded-xl bg-slate-800/50 border border-white/10 text-white shadow-sm focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 sm:text-sm px-4 py-2.5 transition-colors duration-150">
-                                        <option value="">Pilih Ikon</option>
+                                        <option value="">{{ __('Pilih Ikon') }}</option>
                                         @foreach($icons as $ic)
                                             <option value="{{ $ic }}">{{ $ic }}</option>
                                         @endforeach
@@ -131,10 +131,10 @@
                     {{-- Modal Footer --}}
                     <div class="bg-slate-800/50 px-6 py-4 sm:flex sm:flex-row-reverse gap-3 border-t border-white/[0.06]">
                         <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-xl px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-sm font-medium text-white shadow-lg shadow-indigo-500/25 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
-                            Simpan
+                            {{ __('Simpan') }}
                         </button>
                         <button type="button" wire:click="closeModal()" class="mt-3 sm:mt-0 w-full sm:w-auto inline-flex justify-center rounded-xl px-5 py-2.5 bg-white/5 hover:bg-white/10 text-sm font-medium text-slate-300 border border-white/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
-                            Batal
+                            {{ __('Batal') }}
                         </button>
                     </div>
                 </form>

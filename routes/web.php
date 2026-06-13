@@ -30,6 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Wallets
     Route::get('/wallets', \App\Livewire\Wallets\WalletManager::class)->name('wallets');
     
+    // Debts (Piutang)
+    Route::get('/debts', \App\Livewire\Debts\DebtManager::class)->name('debts');
+    
     // Transactions
     Route::get('/transactions', \App\Livewire\Transactions\TransactionList::class)->name('transactions.index');
     Route::get('/transactions/create', \App\Livewire\Transactions\TransactionForm::class)->name('transactions.create');

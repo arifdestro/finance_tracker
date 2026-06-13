@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Transaction;
 use App\Models\Wallet;
+use App\Models\Debt;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,9 @@ class Overview extends Component
             ->whereMonth('transaction_date', $currentMonth)
             ->whereYear('transaction_date', $currentYear)
             ->sum('amount');
+
+        // Total outstanding debt (piutang)
+        $totalDebt = Debt::where('user_id', $userId)->where('is_paid', false)->sum('amount');
 
         // Recent Transactions
         $recentTransactions = Transaction::with(['category', 'wallet', 'toWallet'])
@@ -93,7 +97,7 @@ class Overview extends Component
         return view('livewire.dashboard.overview', compact(
             'totalBalance', 'incomeThisMonth', 'expenseThisMonth', 'recentTransactions',
             'categoryLabels', 'categoryData', 'categoryColors',
-            'last7Days', 'incomeData', 'expenseData', 'transferData'
+            'last7Days', 'incomeData', 'expenseData', 'transferData', 'totalDebt'
         ))->layout('layouts.app');
     }
 }
