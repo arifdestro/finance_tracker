@@ -33,7 +33,10 @@ class Overview extends Component
             ->sum('amount');
 
         // Total outstanding debt (piutang)
-        $totalDebt = Debt::where('user_id', $userId)->where('is_paid', false)->sum('amount');
+        $totalDebt = Debt::where('user_id', $userId)
+            ->where('is_paid', false)
+            ->get()
+            ->sum(function($debt) { return max(0, $debt->amount - $debt->paid_amount); });
 
         // Recent Transactions
         $recentTransactions = Transaction::with(['category', 'wallet', 'toWallet'])

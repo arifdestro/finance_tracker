@@ -20,10 +20,22 @@
                     </div>
                 </div>
                 <h2 class="text-3xl font-bold tracking-tight">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
+
+                {{-- Total Seharusnya --}}
+                @if($totalDebt > 0)
+                <div class="mt-3 pt-3 border-t border-white/20 flex items-center justify-between">
+                    <span class="text-xs text-indigo-200/70 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                        {{ __('Total seharusnya') }}
+                    </span>
+                    <span class="text-sm font-bold text-emerald-300">Rp {{ number_format($totalBalance + $totalDebt, 0, ',', '.') }}</span>
+                </div>
+                @else
                 <div class="mt-4 flex items-center text-sm text-indigo-100/80">
                     <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     {{ __('Terakumulasi dari semua dompet') }}
                 </div>
+                @endif
             </div>
         </div>
 

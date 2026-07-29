@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Debt extends Model
 {
     protected $fillable = [
-        'user_id', 'wallet_id', 'borrower_name', 'amount',
+        'user_id', 'wallet_id', 'borrower_name', 'amount', 'paid_amount',
         'description', 'debt_date', 'due_date', 'is_paid', 'paid_date', 'notes',
     ];
 
@@ -23,4 +23,15 @@ class Debt extends Model
 
     public function user() { return $this->belongsTo(User::class); }
     public function wallet() { return $this->belongsTo(Wallet::class); }
+    public function payments() { return $this->hasMany(DebtPayment::class)->orderBy('payment_date', 'desc')->orderBy('created_at', 'desc'); }
+
+    public function getRemainingAmountAttribute()
+    {
+        return max(0, $this->amount - $this->paid_amount);
+    }
+
+    public function getIsPaidOffAttribute()
+    {
+        return $this->paid_amount >= $this->amount;
+    }
 }

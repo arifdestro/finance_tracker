@@ -114,11 +114,31 @@
                             {{-- Initial Balance --}}
                             <div>
                                 <label class="block text-sm font-medium text-slate-300 mb-1.5">{{ __('Saldo Awal') }}</label>
-                                <div class="relative">
+                                <div class="relative"
+                                    x-data="{
+                                        display: '',
+                                        init() {
+                                            let val = $wire.balance;
+                                            if (val) this.display = Number(val).toLocaleString('id-ID');
+                                        },
+                                        format(e) {
+                                            let raw = e.target.value.replace(/\D/g, '');
+                                            this.display = raw ? Number(raw).toLocaleString('id-ID') : '';
+                                            $wire.set('balance', raw ? Number(raw) : '');
+                                        }
+                                    }"
+                                    x-init="init()">
                                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                         <span class="text-slate-500 text-sm font-medium">Rp</span>
                                     </div>
-                                    <input type="number" wire:model="balance" placeholder="0" class="w-full pl-12 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 px-4 py-2.5 text-sm transition-all duration-200">
+                                    <input
+                                        type="text"
+                                        inputmode="numeric"
+                                        x-model="display"
+                                        @input="format($event)"
+                                        placeholder="0"
+                                        class="w-full pl-12 rounded-xl bg-slate-800/50 border border-white/10 text-white placeholder-slate-500 focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 px-4 py-2.5 text-sm transition-all duration-200"
+                                    >
                                 </div>
                                 @error('balance') <span class="text-rose-400 text-xs mt-1 block">{{ $message }}</span> @enderror
                             </div>
