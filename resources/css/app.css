@@ -3,18 +3,116 @@
 @tailwind utilities;
 
 @layer base {
-    /* Custom scrollbar for better aesthetic */
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+    /* ===== LIGHT MODE (Default) ===== */
+    :root {
+        --color-bg-primary: #f8fafc;       /* slate-50 */
+        --color-bg-secondary: #f1f5f9;     /* slate-100 */
+        --color-bg-card: #ffffff;
+        --color-bg-card-hover: #f8fafc;
+        --color-bg-sidebar: #ffffff;
+        --color-bg-input: #f1f5f9;
+        --color-border: #e2e8f0;           /* slate-200 */
+        --color-border-light: #f1f5f9;     /* slate-100 */
+        --color-text-primary: #0f172a;     /* slate-900 */
+        --color-text-secondary: #475569;   /* slate-600 */
+        --color-text-muted: #94a3b8;       /* slate-400 */
+        --color-text-heading: #1e293b;     /* slate-800 */
+        --color-shadow: rgba(0,0,0,0.08);
+        --color-glow-indigo: rgba(99,102,241,0.08);
+        --color-glow-violet: rgba(139,92,246,0.05);
+        --color-glow-pink: rgba(236,72,153,0.03);
+        --color-mesh-1: rgba(99,102,241,0.06);
+        --color-mesh-2: rgba(139,92,246,0.04);
+        --color-mesh-3: rgba(236,72,153,0.03);
+        --color-glass: rgba(255,255,255,0.7);
+        --color-glass-border: rgba(0,0,0,0.06);
+        --color-float-1: rgba(99,102,241,0.06);
+        --color-float-2: rgba(139,92,246,0.06);
+        --color-scrollbar: rgba(99,102,241,0.2);
+        --color-scrollbar-hover: rgba(99,102,241,0.4);
     }
-    ::-webkit-scrollbar-track {
-        background: transparent;
+
+    /* ===== DARK MODE ===== */
+    .dark {
+        --color-bg-primary: #020617;       /* slate-950 */
+        --color-bg-secondary: #0f172a;     /* slate-900 */
+        --color-bg-card: rgba(15,23,42,0.8);
+        --color-bg-card-hover: rgba(30,41,59,0.5);
+        --color-bg-sidebar: rgba(15,23,42,0.8);
+        --color-bg-input: rgba(30,41,59,0.5);
+        --color-border: rgba(255,255,255,0.06);
+        --color-border-light: rgba(255,255,255,0.04);
+        --color-text-primary: #ffffff;
+        --color-text-secondary: #94a3b8;   /* slate-400 */
+        --color-text-muted: #64748b;       /* slate-500 */
+        --color-text-heading: #ffffff;
+        --color-shadow: rgba(0,0,0,0.3);
+        --color-glow-indigo: rgba(99,102,241,0.08);
+        --color-glow-violet: rgba(139,92,246,0.06);
+        --color-glow-pink: rgba(236,72,153,0.04);
+        --color-mesh-1: rgba(99,102,241,0.08);
+        --color-mesh-2: rgba(139,92,246,0.06);
+        --color-mesh-3: rgba(236,72,153,0.04);
+        --color-glass: rgba(255,255,255,0.03);
+        --color-glass-border: rgba(255,255,255,0.06);
+        --color-float-1: rgba(99,102,241,0.1);
+        --color-float-2: rgba(139,92,246,0.1);
+        --color-scrollbar: rgba(99,102,241,0.3);
+        --color-scrollbar-hover: rgba(99,102,241,0.5);
     }
-    ::-webkit-scrollbar-thumb {
-        @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+
+    /* Apply theme variables globally */
+    body {
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
-    ::-webkit-scrollbar-thumb:hover {
-        @apply bg-gray-400 dark:bg-gray-500;
+}
+
+@layer components {
+    /* ===== THEMED COMPONENTS ===== */
+
+    /* Main app background */
+    .themed-app-bg {
+        background-color: var(--color-bg-primary);
+        background-image:
+            radial-gradient(at 0% 0%, var(--color-mesh-1) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, var(--color-mesh-2) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, var(--color-mesh-3) 0px, transparent 50%);
     }
+
+    /* Sidebar */
+    .themed-sidebar {
+        background-color: var(--color-bg-sidebar);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-color: var(--color-border);
+    }
+
+    /* Cards */
+    .themed-card {
+        background-color: var(--color-bg-card);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-color: var(--color-border);
+        box-shadow: 0 4px 6px -1px var(--color-shadow);
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Text colors */
+    .themed-text { color: var(--color-text-primary); }
+    .themed-text-secondary { color: var(--color-text-secondary); }
+    .themed-text-muted { color: var(--color-text-muted); }
+    .themed-text-heading { color: var(--color-text-heading); }
+
+    /* Inputs */
+    .themed-input {
+        background-color: var(--color-bg-input);
+        border-color: var(--color-border);
+        color: var(--color-text-primary);
+    }
+
+    /* Borders */
+    .themed-border { border-color: var(--color-border); }
+    .themed-border-light { border-color: var(--color-border-light); }
 }
