@@ -5,6 +5,8 @@ namespace App\Livewire\Dashboard;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use App\Models\Debt;
+use App\Models\Payable;
+use App\Models\Goal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +39,12 @@ class Overview extends Component
             ->where('is_paid', false)
             ->get()
             ->sum(function($debt) { return max(0, $debt->amount - $debt->paid_amount); });
+
+        // Total outstanding payable (utang)
+        $totalPayable = Payable::where('user_id', $userId)
+            ->where('is_paid', false)
+            ->get()
+            ->sum(function($payable) { return max(0, $payable->amount - $payable->paid_amount); });
 
         // Recent Transactions
         $recentTransactions = Transaction::with(['category', 'wallet', 'toWallet'])
@@ -97,10 +105,24 @@ class Overview extends Component
             $transferData[] = $transfer;
         }
 
+        // Active Goals
+        $activeGoals = Goal::where('user_id', $userId)
+            ->orderByRaw('current_amount / target_amount DESC') // Highest progress first
+            ->take(3)
+            ->get();
+
+        // Upcoming Subscriptions Alert (Due in <= 3 days)
+        $upcomingSubscriptions = \App\Models\Subscription::where('user_id', $userId)
+            ->get()
+            ->filter(function($sub) {
+                return $sub->days_until_due <= 3;
+            })
+            ->sortBy('days_until_due');
+
         return view('livewire.dashboard.overview', compact(
             'totalBalance', 'incomeThisMonth', 'expenseThisMonth', 'recentTransactions',
             'categoryLabels', 'categoryData', 'categoryColors',
-            'last7Days', 'incomeData', 'expenseData', 'transferData', 'totalDebt'
+            'last7Days', 'incomeData', 'expenseData', 'transferData', 'totalDebt', 'totalPayable', 'activeGoals', 'upcomingSubscriptions'
         ))->layout('layouts.app');
     }
 }

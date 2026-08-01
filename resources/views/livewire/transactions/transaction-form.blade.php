@@ -1,24 +1,24 @@
 <div>
     <div class="mb-6 flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-bold text-white">{{ $transactionId ? __('Edit Transaksi') : __('Transaksi Baru') }}</h1>
+            <h1 class="text-2xl font-bold text-slate-800 dark:text-white">{{ $transactionId ? __('Edit Transaksi') : __('Transaksi Baru') }}</h1>
         </div>
-        <a href="{{ route('transactions.index') }}" wire:navigate class="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-slate-300 transition-all duration-200 font-medium">
+        <a href="{{ route('transactions.index') }}" wire:navigate class="px-4 py-2 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-xl text-slate-700 dark:text-slate-300 transition-all duration-200 font-medium">
             {{ __('Kembali') }}
         </a>
     </div>
 
-    <div class="bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/[0.06] max-w-3xl mx-auto overflow-hidden shadow-lg shadow-indigo-500/5">
+    <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-white/[0.06] max-w-3xl mx-auto overflow-hidden shadow-lg shadow-indigo-500/5">
 
         <!-- Type Selector -->
-        <div class="flex border-b border-white/[0.06]">
-            <button wire:click="$set('type', 'expense')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'expense' ? 'border-rose-500 text-rose-400 bg-rose-500/10' : 'border-transparent text-slate-400 hover:text-slate-300 hover:bg-white/[0.02]' }}">
+        <div class="flex border-b border-slate-200 dark:border-white/[0.06]">
+            <button wire:click="$set('type', 'expense')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'expense' ? 'border-rose-500 text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-500/10' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.02]' }}">
                 {{ __('Pengeluaran') }}
             </button>
-            <button wire:click="$set('type', 'income')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'income' ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10' : 'border-transparent text-slate-400 hover:text-slate-300 hover:bg-white/[0.02]' }}">
+            <button wire:click="$set('type', 'income')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'income' ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.02]' }}">
                 {{ __('Pemasukan') }}
             </button>
-            <button wire:click="$set('type', 'transfer')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'transfer' ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-transparent text-slate-400 hover:text-slate-300 hover:bg-white/[0.02]' }}">
+            <button wire:click="$set('type', 'transfer')" class="flex-1 py-4 text-center font-medium transition-all duration-200 border-b-2 {{ $type === 'transfer' ? 'border-blue-500 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10' : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[0.02]' }}">
                 {{ __('Transfer') }}
             </button>
         </div>
@@ -27,7 +27,7 @@
 
             <!-- Amount -->
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Jumlah') }}</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Jumlah') }}</label>
                 <div class="relative" 
                      x-data="{ 
                          displayValue: $wire.entangle('amount').live,
@@ -55,47 +55,47 @@
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <span class="text-slate-500 font-medium">Rp</span>
                     </div>
-                    <input type="text" x-ref="input" @input="updateValue" autocomplete="off" class="w-full pl-12 py-3 text-lg font-semibold rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    <input type="text" x-ref="input" @input="updateValue" autocomplete="off" class="w-full pl-12 py-3 text-lg font-semibold rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
                 </div>
-                @error('amount') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                @error('amount') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
             </div>
 
             <!-- Wallets -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-1">
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
                         {{ $type === 'transfer' ? __('Dari Dompet') : __('Dompet') }}
                     </label>
-                    <select wire:model="wallet_id" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    <select wire:model="wallet_id" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
                         <option value="">{{ __('Pilih Dompet') }}</option>
                         @foreach($wallets as $wallet)
                             <option value="{{ $wallet->id }}">{{ $wallet->name }} (Rp {{ number_format($wallet->balance, 0, ',', '.') }})</option>
                         @endforeach
                     </select>
-                    @error('wallet_id') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                    @error('wallet_id') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 @if($type === 'transfer')
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Ke Dompet') }}</label>
-                    <select wire:model="to_wallet_id" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Ke Dompet') }}</label>
+                    <select wire:model="to_wallet_id" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
                         <option value="">{{ __('Pilih Tujuan') }}</option>
                         @foreach($wallets as $wallet)
                             <option value="{{ $wallet->id }}">{{ $wallet->name }}</option>
                         @endforeach
                     </select>
-                    @error('to_wallet_id') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                    @error('to_wallet_id') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 @else
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Kategori') }}</label>
-                    <select wire:model="category_id" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Kategori') }}</label>
+                    <select wire:model="category_id" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
                         <option value="">{{ __('Pilih Kategori') }}</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    @error('category_id') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                    @error('category_id') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 @endif
             </div>
@@ -103,21 +103,21 @@
             <!-- Date & Description -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Tanggal Transaksi') }}</label>
-                    <input type="date" wire:model="transaction_date" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
-                    @error('transaction_date') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Tanggal Transaksi') }}</label>
+                    <input type="date" wire:model="transaction_date" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    @error('transaction_date') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Judul / Deskripsi Singkat') }}</label>
-                    <input type="text" wire:model="description" placeholder="{{ __('Contoh: Makan siang') }}" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
-                    @error('description') <span class="text-rose-400 text-xs">{{ $message }}</span> @enderror
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Judul / Deskripsi Singkat') }}</label>
+                    <input type="text" wire:model="description" placeholder="{{ __('Contoh: Makan siang') }}" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500">
+                    @error('description') <span class="text-rose-500 dark:text-rose-400 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <!-- Notes -->
             <div>
-                <label class="block text-sm font-medium text-slate-300 mb-1">{{ __('Catatan Tambahan (Opsional)') }}</label>
-                <textarea wire:model="notes" rows="3" class="w-full rounded-xl bg-slate-800/50 border-white/10 text-white placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500"></textarea>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('Catatan Tambahan (Opsional)') }}</label>
+                <textarea wire:model="notes" rows="3" class="w-full rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-white/10 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:ring-indigo-500/50 focus:border-indigo-500"></textarea>
             </div>
 
             <div class="pt-4 flex justify-end">
