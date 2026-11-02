@@ -1,8 +1,5 @@
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "framework": null,
-    "buildCommand": "echo \"Using prebuilt Vite assets from public/build\"",
-    "outputDirectory": "public",
+    "version": 2,
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.7.4",
@@ -10,9 +7,11 @@
         }
     },
     "routes": [
-        { "src": "/index\\.php", "dest": "/api/index.php" },
-        { "src": "/\\.htaccess", "dest": "/api/index.php" },
-        { "handle": "filesystem" },
+        { "src": "/build/(.*)", "dest": "/public/build/$1" },
+        { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
+        { "src": "/favicon.svg", "dest": "/public/favicon.svg" },
+        { "src": "/favicon.png", "dest": "/public/favicon.png" },
+        { "src": "/robots.txt", "dest": "/public/robots.txt" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "env": {
