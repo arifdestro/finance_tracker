@@ -38,7 +38,7 @@ class TransactionForm extends Component
             $trx = Transaction::where('user_id', Auth::id())->findOrFail($id);
             $this->transactionId = $trx->id;
             $this->type = $trx->type;
-            $this->amount = $trx->amount;
+            $this->amount = round($trx->amount);
             $this->wallet_id = $trx->wallet_id;
             $this->to_wallet_id = $trx->to_wallet_id;
             $this->category_id = $trx->category_id;

@@ -4,14 +4,25 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+// Pastikan direktori view terkompilasi dan direktori cache di /tmp tersedia (Vercel Serverless)
+$compiledPath = $_ENV['VIEW_COMPILED_PATH'] ?? $_SERVER['VIEW_COMPILED_PATH'] ?? '/tmp/views';
+if ($compiledPath && !is_dir($compiledPath)) {
+    @mkdir($compiledPath, 0755, true);
+}
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        //
+    ->withMiddleware(function (Middleware $middleware) {
+        // Trust reverse proxies (Vercel, Cloudflare, Nginx) so HTTPS URLs are generated correctly.
+        $middleware->trustProxies(at: '*');
+
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
