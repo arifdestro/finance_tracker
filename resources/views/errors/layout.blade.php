@@ -58,7 +58,7 @@
         .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
     </style>
 </head>
-<body class="antialiased bg-slate-50 dark:bg-slate-950 bg-mesh text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen flex items-center justify-center relative overflow-hidden">
+<body class="antialiased bg-slate-50 dark:bg-slate-950 bg-mesh text-slate-800 dark:text-slate-200 transition-colors duration-300 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
     
     <!-- Decorative Orbs -->
     <div class="absolute top-0 right-1/4 w-[400px] h-[400px] bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full blur-[100px] animate-float pointer-events-none z-0"></div>
