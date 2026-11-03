@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy-policy');
+Route::view('/terms-of-service', 'terms-of-service')->name('terms-of-service');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
@@ -33,7 +34,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Debts (Piutang)
     Route::get('/debts', \App\Livewire\Debts\DebtManager::class)->name('debts');
     
-    // Transactions
+    // Payables (Utang)
+    Route::get('/payables', \App\Livewire\Payables\PayableManager::class)->name('payables');
+
+    // Subscriptions
+    Route::get('/subscriptions', \App\Livewire\Subscriptions\SubscriptionManager::class)->name('subscriptions');
+
+    // Assets
+    Route::get('/assets', \App\Livewire\Assets\AssetManager::class)->name('assets');
+
+    // Goals
+    Route::get('/goals', \App\Livewire\Goals\GoalManager::class)->name('goals');
+    Route::get('/ai-assistant', \App\Livewire\AiAssistant\ChatWindow::class)->name('ai.chat');
+
+    Route::get('/transactions/import', \App\Livewire\Transactions\TransactionImporter::class)->name('transactions.import');
     Route::get('/transactions', \App\Livewire\Transactions\TransactionList::class)->name('transactions.index');
     Route::get('/transactions/create', \App\Livewire\Transactions\TransactionForm::class)->name('transactions.create');
     Route::get('/transactions/{id}/edit', \App\Livewire\Transactions\TransactionForm::class)->name('transactions.edit');

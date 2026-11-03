@@ -1,4 +1,4 @@
-@props(['route', 'icon', 'label', 'routeIs' => null])
+@props(['route', 'icon', 'label', 'routeIs' => null, 'badge' => null])
 
 @php
     $isActive = request()->routeIs($routeIs ?? $route);
@@ -12,4 +12,7 @@
    }}">
     <svg class="w-5 h-5 shrink-0 {{ $isActive ? 'text-indigo-400' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $icon !!}</svg>
     <span>{{ $label }}</span>
+    @if($badge)
+        <span class="ml-auto text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow-sm shadow-indigo-500/20 leading-none">{{ $badge }}</span>
+    @endif
 </a>

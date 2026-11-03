@@ -52,7 +52,7 @@ test('sidebar and user info can be rendered', function () {
 
     $response
         ->assertOk()
-        ->assertSee('Selamat datang');
+        ->assertSee($user->name);
 });
 
 test('users can logout', function () {
